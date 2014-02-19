@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Movie Search</title>
+       	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+       	<script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js"></script>
+        <style>
+
+        #results {
+        	padding: 0;
+        	font-size: 12px;
+        }
+
+		#results>li {
+			list-style: none;
+			margin: 10px 0;
+			padding: 10px;
+			border: 1px solid #eee;
+			font-family: Helvetica;
+			position: relative;
+			overflow: hidden;
+		}
+
+		#results img {
+			max-width: 70px;
+			margin-right: 20px;
+			float:left;
+		}
+
+		#results ul {
+			margin-left: 100px;
+			padding-left: 0;
+		}
+
+		#results a {
+			color: blue;
+			text-decoration: underline;
+			cursor: pointer;
+		}
+
+		#results span {
+			margin-left: 5px;
+		}
+
+        </style>
+    </head>
+    <body>
+
+		<form id="search">
+			<input type="search"><button>Search</button>
+		</form>
+
+		<ul id="results"></ul>
+
+		<script id="movie-results-template" type="text/handlebars">
+		{{#each results}}
+		<li data-id="{{id}}">
+			{{#if image}}<img src="{{image}}">{{/if}}
+			<strong>Title:</strong><span>{{title}}</span><span>({{year}})</span>{{#if full}}<span>[{{rating}}]</span><br>{{/if}}
+			{{#if full}}
+			<em>{{description}}</em>{{#if cast}}<ul>{{#each cast}}<li>{{this}}</li>{{/each}}</ul>{{/if}}
+			{{else}}<br><a class="load-more">Load More Details...</a>{{/if}}
+		</li>
+		{{else}}
+		<li>No results found</li>
+		{{/each}}
+		</script>
+        <script src="scripts.js"></script>
+    </body>
+</html>
