@@ -6,6 +6,9 @@ var Movie = Backbone.Model.extend({
 		return 'http://www.omdbapi.com/?i='+this.id+'&callback=?';
 	},
 
+	getType: function () {
+		return this.get('Type');
+	},
 	getTitle: function () {
 		return this.get('Title');
 	},
@@ -108,7 +111,8 @@ var MoviesList = Backbone.View.extend({
 			description: model.getDescription(),
 			cast:        model.getCast(),
 			image:       model.getImage(),
-			full:        model.isFullyLoaded()
+			full:        model.isFullyLoaded(),
+			type:        model.getType()
 		};
 	}
 });
@@ -130,8 +134,16 @@ var PageRouter = Backbone.Router.extend({
 var router = new PageRouter();
 
 var SearchForm = Backbone.View.extend({
+	initialize: function () {
+		this.listenTo(this.collection, 'sync', this.render);
+	},
+
 	events: {
 		'submit': 'onSubmit'
+	},
+
+	render: function () {
+		this.$('input').val(this.collection.searchTerm);
 	},
 
 	onSubmit: function (ev) {
@@ -139,7 +151,7 @@ var SearchForm = Backbone.View.extend({
 
 		var term = this.$('input').val();
 		
-		router.navigate("search/"+term, {trigger:true});
+		router.navigate("search/"+encodeURIComponent(term), {trigger:true});
 	}
 });
 
