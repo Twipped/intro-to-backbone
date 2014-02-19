@@ -16,7 +16,7 @@
 
 		#results {
 			padding: 0;
-			margin: 0 auto;
+			margin: 10px auto;
 			font-size: 12px;
 		}
 
@@ -35,26 +35,17 @@
 		}
 
 		#results>li {
-			list-style: none;
-			margin: 10px 0;
 			padding: 10px;
-			border: 1px solid #eee;
 			font-family: Helvetica;
 			position: relative;
 			overflow: hidden;
-			border-radius: 4px;
 		}
 
 		#results img {
 			max-width: 100px;
-			margin-left: 20px;
+			/*margin: 5px;*/
 			float:right;
 			border-radius: 3px;
-		}
-
-		#results ul {
-			/*margin-left: 100px;*/
-			/*padding-left: 0;*/
 		}
 
 		#results a {
@@ -63,16 +54,11 @@
 			cursor: pointer;
 		}
 
-		.load-more {
-			/*float: left;*/
-			/*margin: 10px;*/
-		}
-
 		</style>
 		<script id="movie-results-template" type="text/handlebars">
 		{{#each results}}
-		<li data-id="{{id}}">
-			{{#if image}}<img src="{{image}}">{{/if}}
+		<li data-id="{{id}}" class="list-group-item">
+			{{#if image}}<img src="{{image}}" class="media-object">{{/if}}
 			<h4>
 				<span>{{title}}</span>
 				<span class="label label-default">{{type}}</span>
@@ -80,9 +66,10 @@
 				{{#if rating}}<span class="label label-success">{{rating}}</span>{{/if}}
 			</h4>
 
-			{{#unless full}}<a class="load-more"><i class="glyphicon glyphicon-plus"></i> Load More Details...</a>{{/unless}}
 			{{#if description}}<p>{{description}}</p>{{/if}}
 			{{#if full}}<ul>{{#each cast}}<li>{{this}}</li>{{/each}}</ul>{{/if}}
+
+			{{#unless full}}<a class="load-more"><i class="glyphicon glyphicon-plus"></i> Load More Details...</a>{{/unless}}
 		</li>
 		{{else}}
 		<li>No results found</li>
@@ -101,7 +88,7 @@
 				</div>
 			</form>
 
-			<ul id="results"></ul>
+			<ul id="results" class="list-group"></ul>
 		</div>
 
 
