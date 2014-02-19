@@ -3,7 +3,7 @@ var Movie = Backbone.Model.extend({
 
 	url: function () {
 		//putting callback=? on the end tells jquery this is jsonp
-		return 'http://www.omdbapi.com/?i='+this.id+'&callback=?';
+		return 'http://www.omdbapi.com/?i='+this.id+'&tomatoes=true&callback=?';
 	},
 
 	getType: function () {
@@ -28,10 +28,14 @@ var Movie = Backbone.Model.extend({
 		return this.get('Plot');
 	},
 	getImage: function () {
-		return this.get('Poster');
+		var img = this.get('Poster');
+		return img !== 'N/A' && img || '';
 	},
 	isFullyLoaded: function () {
 		return this.has('Response');
+	},
+	getScore: function () {
+		return this.get('tomatoMeter');
 	}
 });
 
@@ -112,7 +116,8 @@ var MoviesList = Backbone.View.extend({
 			cast:        model.getCast(),
 			image:       model.getImage(),
 			full:        model.isFullyLoaded(),
-			type:        model.getType()
+			type:        model.getType(),
+			score:       model.getScore()
 		};
 	}
 });

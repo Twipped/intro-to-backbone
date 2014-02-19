@@ -7,7 +7,12 @@
 		<style>
 
 		.container {
-			margin-top: 50px;
+			margin-top: 20px;
+		}
+
+		#demo-description {
+			width: 600px;
+			margin: 0 auto 20px;
 		}
 
 		.input-lg {
@@ -29,7 +34,7 @@
 			
 		}
 
-		#results h4 .label {
+		#results h4 .label, #results h4 .badge {
 			font-size: 10px;
 			margin-left: 3px;
 		}
@@ -52,16 +57,23 @@
 			color: #6666bf;
 			text-decoration: none;
 			cursor: pointer;
+			margin-right: 10px;
+		}
+
+		#results>li ul {
+			margin-bottom: 10px;
+			padding-left: 20px;
 		}
 
 		</style>
 		<script id="movie-results-template" type="text/handlebars">
 		{{#each results}}
 		<li data-id="{{id}}" class="list-group-item">
-			{{#if image}}<img src="{{image}}" class="media-object">{{/if}}
+			{{#if image}}<img src="{{image}}" class="img-thumbnail">{{/if}}
 			<h4>
 				<span>{{title}}</span>
-				<span class="label label-default">{{type}}</span>
+				{{#if full}}<span class="badge">{{score}}%</span>{{/if}}
+				<span class="label label-info">{{type}}</span>
 				<span class="label label-primary">{{year}}</span>
 				{{#if rating}}<span class="label label-success">{{rating}}</span>{{/if}}
 			</h4>
@@ -69,21 +81,29 @@
 			{{#if description}}<p>{{description}}</p>{{/if}}
 			{{#if full}}<ul>{{#each cast}}<li>{{this}}</li>{{/each}}</ul>{{/if}}
 
-			{{#unless full}}<a class="load-more"><i class="glyphicon glyphicon-plus"></i> Load More Details...</a>{{/unless}}
+			{{#unless full}}<a class="load-more"><i class="glyphicon glyphicon-plus"></i> Load More Details</a>{{/unless}}
+			<a href="http://www.imdb.com/title/{{id}}" target="_blank"><i class="glyphicon glyphicon-new-window"></i> View on IMDB</a>
 		</li>
 		{{else}}
-		<li>No results found</li>
+		<li class="alert alert-warning">No results found</li>
 		{{/each}}
 		</script>
 	</head>
 	<body>
 
 		<div class="container">
+			<div class="panel panel-default" id="demo-description">
+				<div class="panel-heading">Simple Backbone Demonstration App</div>
+				<div class="panel-body">
+					This is a demonstration application using all the distinct parts of <a href="http://backbonejs.org">Backbone.js</a> and <a href="http://handlebarsjs.com">Handlebars.js</a>. It makes use of the <a href="http://www.omdbapi.com/">oMDB API</a> to retreive basic details about movies and tv series via JSONp.
+				</div>
+			</div>
+
 			<form id="search">
 				<div class="input-group">
 					<input class="form-control input-lg" type="text" placeholder="Enter movie or actor name.">
 					<span class="input-group-btn">
-						<button class="btn btn-primary btn-lg" type="button">Search</button>
+						<button type="submit" class="btn btn-primary btn-lg" type="button">Search</button>
 					</span>
 				</div>
 			</form>
