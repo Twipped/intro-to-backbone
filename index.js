@@ -7,7 +7,7 @@
 //
 // You can view this application at work by visiting http://chipersoft.github.io/intro-to-backbone/demo.html
 //
-// It is recommended that you open the [demo.html](http://github.com/chipersoft/intro-to-backbone/demo.html) source in
+// It is recommended that you open the [demo.html](https://github.com/ChiperSoft/intro-to-backbone/blob/gh-pages/demo.html) source in
 // another tab or browser window while reading this guide, as this JavaScript code is only half of the total application.
 //
 // ---
