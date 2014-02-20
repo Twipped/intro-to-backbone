@@ -34,20 +34,20 @@
 
 // ##Why Should I Use Backbone?
 //
-// Backbone is perfect for the type of developer who abhores magical code.  Backbone itself is so perfect in its simplicity
+// Backbone is perfect for the type of developer who abhors magical code.  Backbone itself is so perfect in its simplicity
 // that even an amateur JavaScript developer can read its source code and fully understand it in under an hour.  All interaction
 // between Backbone modules must be explicitly defined.
 //
-// Backbone will also feel right at home for anyone who prefers a Classical Inheritence model, as all Backbone modules are
+// Backbone will also feel right at home for anyone who prefers a Classical Inheritance model, as all Backbone modules are
 // created by extending existing classes.
 //
-// Finally, Backbone helps to promote componetized development by organizing presentation code around specific elements on a page.
+// Finally, Backbone helps to promote componentized development by organizing presentation code around specific elements on a page.
 
 // ##What does Backbone provide?
 //
 //	Backbone consists of seven distinct parts:
 //
-// 1. `extend()`: A system for extending JavaScript classes with classical inheritence
+// 1. `extend()`: A system for extending JavaScript classes with classical inheritance
 // 2. `Backbone.Sync`: An abstraction of `jQuery.ajax()` for handling server communications. If jQuery is absent it
 //    will also search for Zepto or Ender.
 // 3. `Backbone.Model`: A class for creating data models to interact with and encapsulate stored state.
@@ -86,9 +86,9 @@ var Movie = Backbone.Model.extend({
 
 	// Next we need to define our getters.  Code using this model could fetch the field contents
 	// directly via the `.get()` function, but that requires that the other classes know how the
-	// data in the json response is structured, and means that other classes are coupling themselves
+	// data in the JSON response is structured, and means that other classes are coupling themselves
 	// to that external structure instead of the interface this model provides.  So, it is much
-	// better practice to explicitly define gettings for each piece of data this model provides.
+	// better practice to explicitly define getters for each piece of data this model provides.
 	//
 	// This also makes it possible to manipulate the original data into saner formats, such as splitting
 	// a comma separated list of actors, or returning a proper null value for a missing image.
@@ -128,18 +128,18 @@ var Movie = Backbone.Model.extend({
 
 	// We need a way to detect if an object has been loaded with full details.  The oMDB API only
 	// provides a `Response` property when an item is explicitly loaded, so we can use this as our
-	// detection method.  Backbone models have a `has` function to test for the existance of a field.
+	// detection method.  Backbone models have a `has` function to test for the existence of a field.
 	isFullyLoaded: function () {
 		return this.has('Response');
 	},
 
-	// This model will be responsible for retreiving extra details from the API for individual movies.
+	// This model will be responsible for retrieving extra details from the API for individual movies.
 	// Backbone provides an internal system on the Model class for handling this communication, and
 	// leverages jQuery (if available) to perform the AJAX or JSONp calls.
 	//
-	// The `url` property of a Backbone Model identifies what uri to use for sending and receiving
+	// The `url` property of a Backbone Model identifies what URI to use for sending and receiving
 	// the data for this model.  `url` can be either a fixed string, or a function that returns a string.
-	// Backbone will invoke the function before making the call to Backbone.Sync to retreive the data.
+	// Backbone will invoke the function before making the call to Backbone.Sync to retrieve the data.
 	
 	// In this case we are returning an oMDB API url with our model's ID mixed in.  We're also telling
 	// oMDB that we want Rotten Tomatoes information.  By putting `&callback=?` on the end of the url,
@@ -230,7 +230,7 @@ var Movies = Backbone.Collection.extend({
 // doesn't use `Backbone.Events` explicitly.  Events is a mixin object, a collection of functions designed to be
 // applied to other objects in order to add pre-made functionality to that object via an extension function such
 // as Underscore/Lodash's `_.extend` or `jQuery.extend`.  Mixins are a very common pattern in JavaScript for simulating
-// multiple inheritence.
+// multiple inheritance.
 //
 // Every base class in Backbone has the Events object mixed into it, and you can use it on custom objects like so:
 //
@@ -270,7 +270,7 @@ var MoviesList = Backbone.View.extend({
 	className: 'list-group',
 
 	// The contents of the view will be generated using a Handlebars template function.  The view doesn't know where
-	// that template is, however, so to start we just create a noop.
+	// that template is, however, so to start we just create a non-op.
 	template: function () { return ''; },
 
 	// All Backbone classes support having an `initialize` function which acts as the constructor function for the class.
@@ -320,7 +320,7 @@ var MoviesList = Backbone.View.extend({
 
 	// Now we define the internal method that will be used to convert the Movie models into the row data structure that
 	// the template requires.  We prefix the function name with an underscore to denote that this is an internal function
-	// and is not intended to be called externally (this is a standard convention in JavaScript, done in liu of private methods).
+	// and is not intended to be called externally (this is a standard convention in JavaScript, done in lieu of private methods).
 	_generateRowData: function (model) {
 		return {
 			id:          model.id,
@@ -451,14 +451,14 @@ var PageRouter = Backbone.Router.extend({
 });
 
 
-// ##Tieing It All Together.
+// ##Tying It All Together.
 //
 // Now that we have created all the distinct parts of our application, it is time to connect them all.
 
 // First, initialize our search results collection.  Every piece of our application needs this.
 var searchResults = new Movies();
 
-// Next, we initialize the results view.  We pass in a css selector indentifying the element on the page to bind
+// Next, we initialize the results view.  We pass in a css selector identifying the element on the page to bind
 // the view to, the collection object that the view represents, and the template that the view will use to render.
 //
 // The template for this view was defined in the HTML markup for the page, on a `<script>` tag with the

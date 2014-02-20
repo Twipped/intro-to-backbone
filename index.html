@@ -81,12 +81,12 @@ any other frameworks.  Backbone is un-opinionated about how much of its toolset 
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <h2 id="why-should-i-use-backbone-">Why Should I Use Backbone?</h2>
-<p>Backbone is perfect for the type of developer who abhores magical code.  Backbone itself is so perfect in its simplicity
+<p>Backbone is perfect for the type of developer who abhors magical code.  Backbone itself is so perfect in its simplicity
 that even an amateur JavaScript developer can read its source code and fully understand it in under an hour.  All interaction
 between Backbone modules must be explicitly defined.</p>
-<p>Backbone will also feel right at home for anyone who prefers a Classical Inheritence model, as all Backbone modules are
+<p>Backbone will also feel right at home for anyone who prefers a Classical Inheritance model, as all Backbone modules are
 created by extending existing classes.</p>
-<p>Finally, Backbone helps to promote componetized development by organizing presentation code around specific elements on a page.</p>
+<p>Finally, Backbone helps to promote componentized development by organizing presentation code around specific elements on a page.</p>
 
             </div>
             
@@ -102,7 +102,7 @@ created by extending existing classes.</p>
               <h2 id="what-does-backbone-provide-">What does Backbone provide?</h2>
 <p>Backbone consists of seven distinct parts:</p>
 <ol>
-<li><code>extend()</code>: A system for extending JavaScript classes with classical inheritence</li>
+<li><code>extend()</code>: A system for extending JavaScript classes with classical inheritance</li>
 <li><code>Backbone.Sync</code>: An abstraction of <code>jQuery.ajax()</code> for handling server communications. If jQuery is absent it
 will also search for Zepto or Ender.</li>
 <li><code>Backbone.Model</code>: A class for creating data models to interact with and encapsulate stored state.</li>
@@ -193,9 +193,9 @@ on our model.  The <code>id</code> is also used by Backbone.Collection when sele
               </div>
               <p>Next we need to define our getters.  Code using this model could fetch the field contents
 directly via the <code>.get()</code> function, but that requires that the other classes know how the
-data in the json response is structured, and means that other classes are coupling themselves
+data in the JSON response is structured, and means that other classes are coupling themselves
 to that external structure instead of the interface this model provides.  So, it is much
-better practice to explicitly define gettings for each piece of data this model provides.</p>
+better practice to explicitly define getters for each piece of data this model provides.</p>
 <p>This also makes it possible to manipulate the original data into saner formats, such as splitting
 a comma separated list of actors, or returning a proper null value for a missing image.</p>
 
@@ -246,7 +246,7 @@ a comma separated list of actors, or returning a proper null value for a missing
               </div>
               <p>We need a way to detect if an object has been loaded with full details.  The oMDB API only
 provides a <code>Response</code> property when an item is explicitly loaded, so we can use this as our
-detection method.  Backbone models have a <code>has</code> function to test for the existance of a field.</p>
+detection method.  Backbone models have a <code>has</code> function to test for the existence of a field.</p>
 
             </div>
             
@@ -263,12 +263,12 @@ detection method.  Backbone models have a <code>has</code> function to test for 
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
-              <p>This model will be responsible for retreiving extra details from the API for individual movies.
+              <p>This model will be responsible for retrieving extra details from the API for individual movies.
 Backbone provides an internal system on the Model class for handling this communication, and
 leverages jQuery (if available) to perform the AJAX or JSONp calls.</p>
-<p>The <code>url</code> property of a Backbone Model identifies what uri to use for sending and receiving
+<p>The <code>url</code> property of a Backbone Model identifies what URI to use for sending and receiving
 the data for this model.  <code>url</code> can be either a fixed string, or a function that returns a string.
-Backbone will invoke the function before making the call to Backbone.Sync to retreive the data.</p>
+Backbone will invoke the function before making the call to Backbone.Sync to retrieve the data.</p>
 
             </div>
             
@@ -504,7 +504,7 @@ event on the collection.</p>
 doesn’t use <code>Backbone.Events</code> explicitly.  Events is a mixin object, a collection of functions designed to be
 applied to other objects in order to add pre-made functionality to that object via an extension function such
 as Underscore/Lodash’s <code>_.extend</code> or <code>jQuery.extend</code>.  Mixins are a very common pattern in JavaScript for simulating
-multiple inheritence.</p>
+multiple inheritance.</p>
 <p>Every base class in Backbone has the Events object mixed into it, and you can use it on custom objects like so:</p>
 <pre><code> <span class="hljs-keyword">var</span> mediator = _.extend({}, Backbone.Events);
 </code></pre><p>I will let you look at the <a href="http://backbonejs.org/#Events">Backbone docs</a> for the specifics of the seven functions
@@ -584,7 +584,7 @@ plan to only every use the view with a pre-existing element.  This is done using
                 <a class="pilcrow" href="#section-29">&#182;</a>
               </div>
               <p>The contents of the view will be generated using a Handlebars template function.  The view doesn’t know where
-that template is, however, so to start we just create a noop.</p>
+that template is, however, so to start we just create a non-op.</p>
 
             </div>
             
@@ -752,7 +752,7 @@ internal method called <code>_generateRowData</code> (defined below) to create t
               </div>
               <p>Now we define the internal method that will be used to convert the Movie models into the row data structure that
 the template requires.  We prefix the function name with an underscore to denote that this is an internal function
-and is not intended to be called externally (this is a standard convention in JavaScript, done in liu of private methods).</p>
+and is not intended to be called externally (this is a standard convention in JavaScript, done in lieu of private methods).</p>
 
             </div>
             
@@ -1063,7 +1063,7 @@ However, we need to react outside the scope of this class, so we leave it off.</
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-55">&#182;</a>
               </div>
-              <h2 id="tieing-it-all-together-">Tieing It All Together.</h2>
+              <h2 id="tying-it-all-together-">Tying It All Together.</h2>
 <p>Now that we have created all the distinct parts of our application, it is time to connect them all.</p>
 
             </div>
@@ -1092,7 +1092,7 @@ However, we need to react outside the scope of this class, so we leave it off.</
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-57">&#182;</a>
               </div>
-              <p>Next, we initialize the results view.  We pass in a css selector indentifying the element on the page to bind
+              <p>Next, we initialize the results view.  We pass in a css selector identifying the element on the page to bind
 the view to, the collection object that the view represents, and the template that the view will use to render.</p>
 <p>The template for this view was defined in the HTML markup for the page, on a <code>&lt;script&gt;</code> tag with the
 <code>movie-results-template</code> id.  We use jQuery to fetch the contents of the tag and then pass that to Handlebars to
