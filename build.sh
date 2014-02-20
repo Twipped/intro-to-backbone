@@ -1,0 +1,1 @@
+docco index.js -o ./

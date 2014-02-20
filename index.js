@@ -1,11 +1,14 @@
 // #Backbone.js Tutorial
+// *by Jarvis Badgley ([@ChiperSoft](http://twitter.com/ChiperSoft))*
 //
 // The following is an introduction to the various parts of Backbone.js by way of a very simple single page application.
-//
+
 // This guide is designed to be viewed using the [Docco](http://jashkenas.github.io/docco/) generated annotated view located
-// at http://chipersoft.github.io/intro-to-backbone/
-//
-// You can view this application at work by visiting http://chipersoft.github.io/intro-to-backbone/demo.html
+// at [http://chipersoft.github.io/intro-to-backbone/]. The body content of the guide is displayed on the left side of the page,
+// with the relevant code is displayed on the right.
+(function ($, _, Backbone, Handlebars) {
+
+// You can see this application working by visiting http://chipersoft.github.io/intro-to-backbone/demo.html
 //
 // It is recommended that you open the [demo.html](https://github.com/ChiperSoft/intro-to-backbone/blob/gh-pages/demo.html) source in
 // another tab or browser window while reading this guide, as this JavaScript code is only half of the total application.
@@ -501,3 +504,4 @@ Backbone.history.start();
 //
 // This tutorial is copyrighted &copy; Jarvis Badgley, 2013 and is released under a Creative Commons "CC BY-SA" license.
 // If you have any questions, please feel free to [contact me on Twitter @ChiperSoft](http://twitter.com/ChiperSoft).
+})(window.jQuery, window._, window.Backbone, window.Handlebars);
