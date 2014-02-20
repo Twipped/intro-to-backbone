@@ -10,6 +10,8 @@
 // It is recommended that you open the [demo.html](https://github.com/ChiperSoft/intro-to-backbone/blob/gh-pages/demo.html) source in
 // another tab or browser window while reading this guide, as this JavaScript code is only half of the total application.
 //
+// You can [view the raw source of this guide on GitHub](https://github.com/ChiperSoft/intro-to-backbone/blob/gh-pages/index.js).
+//
 // ---
 
 // ##What Is Backbone?
