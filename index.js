@@ -1,11 +1,13 @@
-
 // #Backbone.js Tutorial
 //
 // The following is an introduction to the various parts of Backbone.js by way of a very simple single page application.
 //
-// You can view this application at work by visiting http://chipersoft.github.io/intro-to-backbone/
+// This guide is designed to be viewed using the [Docco](http://jashkenas.github.io/docco/) generated annotated view located
+// at http://chipersoft.github.io/intro-to-backbone/
 //
-// It is recommended that you open the [index.html](http://github.com/chipersoft/intro-to-backbone/index.html) source in
+// You can view this application at work by visiting http://chipersoft.github.io/intro-to-backbone/demo.html
+//
+// It is recommended that you open the [demo.html](http://github.com/chipersoft/intro-to-backbone/demo.html) source in
 // another tab or browser window while reading this guide, as this JavaScript code is only half of the total application.
 //
 // ---

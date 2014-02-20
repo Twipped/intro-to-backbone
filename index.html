@@ -1,122 +1,1202 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Movie Search</title>
-		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.0/css/bootstrap.min.css">
 
-		<style>
-		.container {
-			margin-top: 20px;
+<html>
+<head>
+  <title>Backbone.js Tutorial</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="index.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h1 id="backbone-js-tutorial">Backbone.js Tutorial</h1>
+<p>The following is an introduction to the various parts of Backbone.js by way of a very simple single page application.</p>
+<p>This guide is designed to be viewed using the <a href="http://jashkenas.github.io/docco/">Docco</a> generated annotated view located
+at <a href="http://chipersoft.github.io/intro-to-backbone/">http://chipersoft.github.io/intro-to-backbone/</a></p>
+<p>You can view this application at work by visiting <a href="http://chipersoft.github.io/intro-to-backbone/demo.html">http://chipersoft.github.io/intro-to-backbone/demo.html</a></p>
+<p>It is recommended that you open the <a href="http://github.com/chipersoft/intro-to-backbone/demo.html">demo.html</a> source in
+another tab or browser window while reading this guide, as this JavaScript code is only half of the total application.</p>
+<hr>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h2 id="what-is-backbone-">What Is Backbone?</h2>
+<p>Backbone is a JavaScript library that provides various tools to assist in the organization of front-end programming code.
+It provides constructs for structuring your code into distinct data models, presentational views and execution controllers.
+This organizational pattern is referred to commonly as MVC.</p>
+<p>Backbone meets the <a href="http://en.wikipedia.org/wiki/Software_framework">Wikipedia definition of a Software Framework</a>:</p>
+<ul>
+<li>It provides Inversion of Control by way of a mediator/observer system for inter-module communication</li>
+<li>It provides default behavior which you may lean on or completely ignore</li>
+<li>It is full extensible by way of overriding publicly exposed components</li>
+<li>It need not be modified itself to perform its duties.</li>
+</ul>
+<p>Backbone does not, however, dictate how you organize your files, how those files are loaded onto the page, or what other
+libraries you wish to use in conjunction with Backbone.  Backbone does not require exclusivity and can be used alongside
+any other frameworks.  Backbone is un-opinionated about how much of its toolset you take advantage of.</p>
+<p>Backbone is a client-side front-end framework.  While some of its pieces can be used in Node.js, it is designed for use in the browser.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <h2 id="why-should-i-use-backbone-">Why Should I Use Backbone?</h2>
+<p>Backbone is perfect for the type of developer who abhores magical code.  Backbone itself is so perfect in its simplicity
+that even an amateur JavaScript developer can read its source code and fully understand it in under an hour.  All interaction
+between Backbone modules must be explicitly defined.</p>
+<p>Backbone will also feel right at home for anyone who prefers a Classical Inheritence model, as all Backbone modules are
+created by extending existing classes.</p>
+<p>Finally, Backbone helps to promote componetized development by organizing presentation code around specific elements on a page.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h2 id="what-does-backbone-provide-">What does Backbone provide?</h2>
+<p>Backbone consists of seven distinct parts:</p>
+<ol>
+<li><code>extend()</code>: A system for extending JavaScript classes with classical inheritence</li>
+<li><code>Backbone.Sync</code>: An abstraction of <code>jQuery.ajax()</code> for handling server communications. If jQuery is absent it
+will also search for Zepto or Ender.</li>
+<li><code>Backbone.Model</code>: A class for creating data models to interact with and encapsulate stored state.</li>
+<li><code>Backbone.Collection</code>: A class for organizing multiple models.</li>
+<li><code>Backbone.View</code>: A class for organizing all behavioral code for a given page element, from generating the
+contents of the element to reacting to user interaction.</li>
+<li><code>Backbone.Router</code>: A page level controller for changing and reacting to changes in the page url.</li>
+<li><code>Backbone.Events</code>: A mediator/observer system for sending messages between Backbone subclasses.</li>
+</ol>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2 id="backbone-model">Backbone.Model</h2>
+<p>We will begin by creating a model to handle the details of an individual movie.  This model will
+interface with the oMDB API to load the details for a specific item in their database and provide
+getter functions for fetching specific details about the movie (technically this class can be
+episodes and tv series as well, but for brevity we will call it a movie).</p>
+<p>An example of the data this model will be wrapping <a href="http://www.omdbapi.com/?i=tt0903624&amp;tomatoes=true">can be found here</a>.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>As with all of Backbone’s classes, we create the new model by calling the <code>extend()</code> function on
+<code>Backbone.Model</code>.  The subclass details are defined by passing in an object as the only argument.
+This object will become the top level prototype of the new class.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> Movie = Backbone.Model.extend({</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Backbone anticipates that every data object which a model interacts with will have a field
+defining an identifier unique to that object.  By default it looks for an <code>id</code> field, but
+if you use a different field name you can instruct Backbone of this via the idAttribute property.</p>
+<p>Backbone will automatically extract this value from the data object and apply it to the <code>id</code> property
+on our model.  The <code>id</code> is also used by Backbone.Collection when selecting specific models in a collection.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>In our case, oMDB uses a field named <code>imdbID</code>, so we must define this.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	idAttribute: <span class="hljs-string">'imdbID'</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Next we need to define our getters.  Code using this model could fetch the field contents
+directly via the <code>.get()</code> function, but that requires that the other classes know how the
+data in the json response is structured, and means that other classes are coupling themselves
+to that external structure instead of the interface this model provides.  So, it is much
+better practice to explicitly define gettings for each piece of data this model provides.</p>
+<p>This also makes it possible to manipulate the original data into saner formats, such as splitting
+a comma separated list of actors, or returning a proper null value for a missing image.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+	getType: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.get(<span class="hljs-string">'Type'</span>);
+	},
+
+	getTitle: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.get(<span class="hljs-string">'Title'</span>);
+	},
+
+	getYear: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.get(<span class="hljs-string">'Year'</span>);
+	},
+
+	getRating: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.get(<span class="hljs-string">'Rated'</span>);
+	},
+
+	getCast: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+		<span class="hljs-keyword">return</span> (<span class="hljs-keyword">this</span>.get(<span class="hljs-string">'Actors'</span>) || <span class="hljs-string">''</span>).split(<span class="hljs-string">', '</span>);
+	},
+
+	getDescription: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.get(<span class="hljs-string">'Plot'</span>);
+	},
+
+	getImage: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+		<span class="hljs-keyword">var</span> img = <span class="hljs-keyword">this</span>.get(<span class="hljs-string">'Poster'</span>);
+		<span class="hljs-keyword">return</span> img !== <span class="hljs-string">'N/A'</span> &amp;&amp; img || <span class="hljs-string">''</span>;
+	},
+
+	getScore: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.get(<span class="hljs-string">'tomatoMeter'</span>);
+	},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>We need a way to detect if an object has been loaded with full details.  The oMDB API only
+provides a <code>Response</code> property when an item is explicitly loaded, so we can use this as our
+detection method.  Backbone models have a <code>has</code> function to test for the existance of a field.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	isFullyLoaded: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.has(<span class="hljs-string">'Response'</span>);
+	},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>This model will be responsible for retreiving extra details from the API for individual movies.
+Backbone provides an internal system on the Model class for handling this communication, and
+leverages jQuery (if available) to perform the AJAX or JSONp calls.</p>
+<p>The <code>url</code> property of a Backbone Model identifies what uri to use for sending and receiving
+the data for this model.  <code>url</code> can be either a fixed string, or a function that returns a string.
+Backbone will invoke the function before making the call to Backbone.Sync to retreive the data.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>In this case we are returning an oMDB API url with our model’s ID mixed in.  We’re also telling
+oMDB that we want Rotten Tomatoes information.  By putting <code>&amp;callback=?</code> on the end of the url,
+this tells jQuery that we want to perform this request via JSONp, and that it should replace
+the question mark with the JSONp callback name.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	url: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+		<span class="hljs-keyword">return</span> <span class="hljs-string">'http://www.omdbapi.com/?i='</span>+<span class="hljs-keyword">this</span>.id+<span class="hljs-string">'&amp;tomatoes=true&amp;callback=?'</span>;
+	}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>That’s all we need for the Movie model.  We can use this code right now like so:</p>
+<pre><code> <span class="hljs-keyword">var</span> Hobbit = <span class="hljs-keyword">new</span> Movie({imdbID: <span class="hljs-string">'tt0903624'</span>});
+ Hobbit.fetch({
+     success: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+         console.log(Hobbit.getCast())
+     }
+ });
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <h2 id="backbone-collection">Backbone.Collection</h2>
+<p>Next we need to create a data model for fetching search results from oMDB.  oMDB returns its results
+as an array of movies (<a href="http://www.omdbapi.com/?s=hobbit">see example]</a>) with reduced details (just a title, year, id and type).
+These individual records, tho having fewer properties, still have the same structure that our Movie model
+expects, so we can treat each result as a Movie.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Lets create our Movies collection by extending <code>Backbone.Collection</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> Movies = Backbone.Collection.extend({</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>Backbone.Collection will automatically wrap the individual objects in the response with data models.
+By default it uses plain <code>Backbone.Model</code> classes for this wrapping, but you can define a specific model
+for Backbone to use instead via the <code>model</code> property on a collection.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>We want to wrap our results with Movie models, so we pass <code>Movie</code> as the model type.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	model: Movie,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Since this model represents search results, we need a property to contain the term being searched for</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	searchTerm: <span class="hljs-literal">false</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>As with the <code>Movie</code> model, we need to tell the collection what url to use for fetching data. Our search term
+can contain characters that aren’t url safe, such as spaces, so we urlencode it.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	url: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+		<span class="hljs-keyword">return</span> <span class="hljs-string">'http://www.omdbapi.com/?s='</span>+<span class="hljs-built_in">encodeURIComponent</span>(<span class="hljs-keyword">this</span>.searchTerm)+<span class="hljs-string">'&amp;callback=?'</span>;
+	},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>By default, Backbone expects that the data it needs in the response will be at the root of the response.
+For models this means it grabs all the properties of the base object to define the field and values of the
+model. For collections, it expects the base of the response to be an array of objects to use for models.</p>
+<p>If you look at the search example linked above, you will see that oMDB returns the results as an array inside
+a <code>Search</code> property, so we need to tell Backbone how to find that array.  This is done using a <code>parse</code> function
+on the Model or Collection.  Backbone will call <code>parse</code> with the contents of the AJAX/JSONp response and use
+whatever it returns as its contents.  This is also the function you would use if you need to pre-process the
+data, or create nested models inside a model.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>Here our <code>parse</code> function is returning with the Search array.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	parse: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(response)</span> {</span>
+		<span class="hljs-keyword">return</span> response.Search;
+	},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>Finally we need a function to kick off a request to oMDB to search for a new value.  This function sets the
+<code>searchTerm</code> property that we created above, and then calls its <code>fetch</code> function. <code>fetch</code> is a convenience
+function that tells Backbone.Sync that we need to perform a read request, overwriting the previous data.</p>
+<p>When the request completes, Backbone will update the contents of the collection and then trigger a ‘sync’
+event on the collection.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	searchFor: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(term)</span> {</span>
+		<span class="hljs-keyword">this</span>.searchTerm = term;
+		<span class="hljs-keyword">this</span>.fetch();
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+	}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>We can use this collection right now like so:</p>
+<pre><code>  <span class="hljs-keyword">var</span> Hobbits = <span class="hljs-keyword">new</span> Movies();
+  Hobbits.searchFor(<span class="hljs-string">'Hobbit'</span>);
+  Hobbits.once(<span class="hljs-string">'sync'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+      console.log(Hobbits.toJSON())
+  });
+</code></pre><p>The <code>toJSON()</code> function will output the contents of the collection as a plain JS object.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <h2 id="backbone-events">Backbone.Events</h2>
+<p>Before we continue with more code I need to take a moment to talk about <code>Backbone.Events</code>, because this example
+doesn’t use <code>Backbone.Events</code> explicitly.  Events is a mixin object, a collection of functions designed to be
+applied to other objects in order to add pre-made functionality to that object via an extension function such
+as Underscore/Lodash’s <code>_.extend</code> or <code>jQuery.extend</code>.  Mixins are a very common pattern in JavaScript for simulating
+multiple inheritence.</p>
+<p>Every base class in Backbone has the Events object mixed into it, and you can use it on custom objects like so:</p>
+<pre><code> <span class="hljs-keyword">var</span> mediator = _.extend({}, Backbone.Events);
+</code></pre><p>I will let you look at the <a href="http://backbonejs.org/#Events">Backbone docs</a> for the specifics of the seven functions
+that Events provides, but the gist of it is a basic publish/subscribe pattern.  Any object can publish an event using
+the <code>trigger</code> function, and any object can subscribe to events using the <code>on</code> or <code>once</code> functions.  Backbone also
+provides an Inversion of Control function called <code>listenTo</code>, where — instead of ObjectA binding a callback to ObjectB —
+ObjectA binds the callback to itself and proxies the event from ObjectB.</p>
+<p>This is the intended mechanism for handling control flow within Backbone modules.  Modules only ever interface with
+each other by way of themselves, so you avoid tight coupling.  You will see this interaction in the next section.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <h2 id="backbone-view">Backbone.View</h2>
+<p>Now that we have our two data wranglers, its time to create a means of displaying the data. In the same way
+that <code>Backbone.Model</code> and <code>Backbone.Collection</code> wrap data objects and arrays, <code>Backbone.View</code> wraps a single HTML
+element in the page DOM.  It provides a structure for automatically binding delegated events for that element,
+and a structure for filling in the contents of that element.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>As always, we initialize our View class by calling <code>extend</code>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> MoviesList = Backbone.View.extend({</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>Backbone views expect to be bound to a single DOMElement.  This element can be defined either directly using
+the <code>el</code> property (this can be anything <code>jQuery()</code> will accept.  If the element is not provided, then the view
+will create its own element and keep it detached from the page.  This element is available inside the class as
+a jQuery container stored on <code>this.$el</code>.</p>
+<p>For the sake of versatility, it can be a good idea to define that element’s structure in the view, even if you
+plan to only every use the view with a pre-existing element.  This is done using the <code>tagName</code>, <code>id</code>, and
+<code>className</code> properties.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	tagName: <span class="hljs-string">'ul'</span>,
+
+	id: <span class="hljs-string">'results'</span>,
+
+	className: <span class="hljs-string">'list-group'</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>The contents of the view will be generated using a Handlebars template function.  The view doesn’t know where
+that template is, however, so to start we just create a noop.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	template: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span> <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>; },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p>All Backbone classes support having an <code>initialize</code> function which acts as the constructor function for the class.
+In our model and collection we didn’t have a need for this, but the view needs to do a few thing at creation time.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	initialize: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(options)</span> {</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>This view will be displaying the contents of the search results collection.  We will be providing that
+collection when we initialize the class, and Backbone will automatically attach that collection to the view,
+but we still need to bind to the <code>sync</code> event on that collection so that we knew when the data has changed.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">this</span>.listenTo(<span class="hljs-keyword">this</span>.collection, <span class="hljs-string">'sync'</span>, <span class="hljs-keyword">this</span>.render);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <p>Backbone does not have any built in logic for handling template functions, so we need to assign our template
+function manually if one was provided during instantiation.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">if</span> (options.template) {
+			<span class="hljs-keyword">this</span>.template = options.template;
 		}
+	},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>The standard convention in Backbone development is to have the contents of the element filled in by a <code>render</code>
+function.  Backbone will not ever call this function on its own, this is merely a standard that it establishes.
+Some developers will also have functions for adding or removing elements to the view (Marionette, for example,
+provides systems for generating composite views made up of smaller item views.)</p>
 
-		#demo-description {
-			width: 600px;
-			margin: 0 auto 20px;
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-34">&#182;</a>
+              </div>
+              <p>In our case, the code for drawing our list is pretty basic and speedy, so we just do a basic overwrite.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <p>First we need to generate the data structure that our Handlebars template expects. This is a basic object with
+a results array.  Our template doesn’t know anything about Backbone models, so we need to process each model
+in the collection into a data structure it can handle.  Backbone Collections provide a <code>map</code> function for
+iterating over the contents of the collection and returning an array of new values
+(<a href="http://backbonejs.org/#Collection-Underscore-Methods">See the Backbone docs for details.</a>).  We pass in an
+internal method called <code>_generateRowData</code> (defined below) to create those values.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">var</span> templateData = {
+			results: <span class="hljs-keyword">this</span>.collection.map(<span class="hljs-keyword">this</span>._generateRowData)
+		};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-36">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-36">&#182;</a>
+              </div>
+              <p>Now we pass that data structure to our view’s template in order to produce the HTML that will fill the view’s element.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">var</span> html = <span class="hljs-keyword">this</span>.template(templateData);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-37">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-37">&#182;</a>
+              </div>
+              <p>And finally we pass that HTML into the view element directly.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">this</span>.$el.html(html);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-38">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-38">&#182;</a>
+              </div>
+              <p>A standard convention is to return <code>this</code> from the <code>render</code> function so that other functions can be chained.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+	},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-39">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-39">&#182;</a>
+              </div>
+              <p>Now we define the internal method that will be used to convert the Movie models into the row data structure that
+the template requires.  We prefix the function name with an underscore to denote that this is an internal function
+and is not intended to be called externally (this is a standard convention in JavaScript, done in liu of private methods).</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_generateRowData: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(model)</span> {</span>
+		<span class="hljs-keyword">return</span> {
+			id:          model.id,
+			title:       model.getTitle(),
+			year:        model.getYear(),
+			rating:      model.getRating(),
+			description: model.getDescription(),
+			cast:        model.getCast(),
+			image:       model.getImage(),
+			full:        model.isFullyLoaded(),
+			type:        model.getType(),
+			score:       model.getScore()
+		};
+	},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-40">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-40">&#182;</a>
+              </div>
+              <p>Since the search results contain truncated records, we need a way for the user to request extra details about a
+movie.  When the record is truncated, our Handlebars template outputs a link with a <code>load-more</code> css class.  We
+need to watch for when that link is clicked in order to tell the model for that row to load the extra data.</p>
+<p>We could do this in the <code>render</code> function with a standard jQuery call, but that sort of event binding makes
+for a bad anti-pattern, as it creates lots of extra handlers that then need to be cleaned up by the browser every
+time the view reloads.</p>
+<p>The better practice is to use <a href="https://learn.jquery.com/events/event-delegation/">event delegation</a>, creating
+our handlers on the view’s main element.  Backbone provides an excellent mechanism for doing this automatically.</p>
+<p>The <code>events</code> property on a Backbone View defines a list of all delegated events that you want to react to
+within your view.  The keys of the <code>events</code> property object define the event name and a css selector of the
+element that should respond to the event.  The value for that key contains the name of the function on this
+class that should be invoked when the event occurs.  The value may also be a function closure, which will be
+called with the context (<code>this</code>) of the view.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-41">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-41">&#182;</a>
+              </div>
+              <p>Here we have defined a delegate for the <code>click</code> event on an element with the <code>load-more</code> class, and told it
+to invoke the onClickedLoad function on our view.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	events: {
+		<span class="hljs-string">'click .load-more'</span>: <span class="hljs-string">'onClickedLoad'</span>
+	},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-42">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-42">&#182;</a>
+              </div>
+              <p>And here is our event handler.  The function will receive a single argument, the jQuery event object.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	onClickedLoad: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(ev)</span> {</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-43">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-43">&#182;</a>
+              </div>
+              <p>We identify the id of the movie by grabbing the row’s data-id attribute (defined in the Handlebars template)…</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">var</span> id = $(ev.target).parents(<span class="hljs-string">'li'</span>).attr(<span class="hljs-string">'data-id'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-44">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-44">&#182;</a>
+              </div>
+              <p>…and use that id to fetch the relevant model from the view’s collection…</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">var</span> model = <span class="hljs-keyword">this</span>.collection.get(id);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-45">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-45">&#182;</a>
+              </div>
+              <p>…so that we can tell the collection to fetch the full details of the object.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		model.fetch();
+	}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-46">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-46">&#182;</a>
+              </div>
+              <p>Now you’re probably wonder, what causes the view to update once that model gets its new details?</p>
+<p>Backbone Collections automatically subscribe to all events emitted by the models they contain.  When the <code>fetch</code>
+request completes, the model’s <code>sync</code> event will be triggered. This will, in-turn, trigger the <code>sync</code> event on
+the collection itself.  Because we subscribed to that <code>sync</code> event in the <code>initialize</code> method, the view redraws
+with the new model data.  Quick and easy data binding with minimal effort.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-47">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-47">&#182;</a>
+              </div>
+              <p>We’ve created the view for displaying the contents of the collection, but how do we tell the collection to
+perform a search?  We need to have a search form to take the user’s input and kick off the process, and
+we need to create behavior for that form.</p>
+<p>You could just use jQuery to add an event binding to the submit event, but that’s not very componentized, or even
+reusable, so lets create a view to handle the behavior of a search form.  Additionally, for this example we’ll have
+the form already be present on the page, so that there is no need to rebuild the contents using a template.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-48">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-48">&#182;</a>
+              </div>
+              <p>The form should always show the search term, so we’ll set it up to accept the search collection and to update the
+input with the term after every sync.  As this is the only contents of the form that are changing, we’ll have the
+render function handle this.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> SearchForm = Backbone.View.extend({
+	initialize: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.collection) {
+			<span class="hljs-keyword">this</span>.listenTo(<span class="hljs-keyword">this</span>.collection, <span class="hljs-string">'sync'</span>, <span class="hljs-keyword">this</span>.render);
 		}
+	},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-49">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-49">&#182;</a>
+              </div>
+              <p>I mentioned above that the <code>$el</code> property is a reference to the element the view represents.  Likewise,
+Backbone also provides <code>this.$()</code> as a shortcut to <code>this.$el.find()</code>, for selecting elements inside the view.</p>
 
-		.input-lg {
-			height: 45px;
-		}
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+		<span class="hljs-keyword">this</span>.$(<span class="hljs-string">'input[type="search"]'</span>).val(<span class="hljs-keyword">this</span>.collection.searchTerm);
+	},</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-50">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-50">&#182;</a>
+              </div>
+              <p>Here we demonstrate using an anonymous function to handle the event, instead of defining it as a
+method on the class.  Note that the function is still able to use <code>this</code>, despite it not being a member
+of the view.</p>
 
-		#results {
-			padding: 0;
-			margin: 10px auto;
-			font-size: 12px;
-		}
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	events: {
+		<span class="hljs-string">'submit'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(ev)</span> {</span>
+			ev.preventDefault();
 
-		#results h4 {
-			margin: 0 0 10px;
-		}
-
-		#results h4 span {
-			vertical-align: middle;
+			<span class="hljs-keyword">var</span> term = <span class="hljs-keyword">this</span>.$(<span class="hljs-string">'input[type="search"]'</span>).val();
 			
+			<span class="hljs-keyword">this</span>.trigger(<span class="hljs-string">'search'</span>, term);
 		}
+	}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-51">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-51">&#182;</a>
+              </div>
+              <p>With our search view defined, it’s time to cover the final piece of the Backbone puzzle.</p>
 
-		#results h4 .label, #results h4 .badge {
-			font-size: 10px;
-			margin-left: 3px;
-		}
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-52">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-52">&#182;</a>
+              </div>
+              <h2 id="backbone-router-backbone-history">Backbone.Router / Backbone.History</h2>
+<p><code>Backbone.History</code> is the C in the MVC paradigm that Backbone provides (Controller).  History is an abstraction
+of the browser history API for interacting with the page url.  In modern browsers it is possible to completely alter the
+URL without reloading the page.  It is also possible to capture changes in the url within the page, and react to them
+without trigger a fresh page load.  A server can send the exact same files for any urls that match a specific pattern,
+and the code on the page will react to the url and behave differently.</p>
+<p>A few years ago this became extremely popular using so-called “hashbang” URLS; urls containing the <code>#!</code> characters.
+The browser never sends anything to the right of the pound sign, leaving the JavaScript on the page to react to
+that portion of the url.  Hashbang URLs have since gone out of style, but making use of the history API is still
+very handy for using the URL to identify the state of the page.</p>
+<p>For our example, we will use <code>Backbone.History</code> to “deep link” to the results for the previous search.  History
+is a global object, however, and should not be interfaced with directly.  Instead, Backbone provides the <code>Router</code>
+class to serve as a feature-specific proxy.  You define the routes you want to react to on the Router, and when
+History sees that route, the Router will react to it.</p>
 
-		#results>li {
-			padding: 10px;
-			font-family: Helvetica;
-			position: relative;
-			overflow: hidden;
-		}
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-53">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-53">&#182;</a>
+              </div>
+              <p>For our example we only need to react to a single route, <code>#search/&lt;searchterm&gt;</code>.  The keys on the routes property
+defines the pattern for the route, and the value identifies a name for the route.  The colon (<code>:</code>) prefix in the route
+pattern identifies that <code>term</code> is word that we want to capture as an argument, and not a literal part of the url.</p>
 
-		#results img {
-			max-width: 100px;
-			/*margin: 5px;*/
-			float:right;
-			border-radius: 3px;
-		}
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> PageRouter = Backbone.Router.extend({
+	routes: {
+		<span class="hljs-string">'search/:term'</span>:  <span class="hljs-string">'search'</span>
+	}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-54">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-54">&#182;</a>
+              </div>
+              <p>If the router needed to perform an action itself, we could create a <code>search</code> function here to handle the event.
+However, we need to react outside the scope of this class, so we leave it off.</p>
 
-		#results a {
-			color: #6666bf;
-			text-decoration: none;
-			cursor: pointer;
-			margin-right: 10px;
-		}
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-55">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-55">&#182;</a>
+              </div>
+              <h2 id="tieing-it-all-together-">Tieing It All Together.</h2>
+<p>Now that we have created all the distinct parts of our application, it is time to connect them all.</p>
 
-		#results>li ul {
-			margin-bottom: 10px;
-			padding-left: 20px;
-		}
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-56">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-56">&#182;</a>
+              </div>
+              <p>First, initialize our search results collection.  Every piece of our application needs this.</p>
 
-		</style>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> searchResults = <span class="hljs-keyword">new</span> Movies();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-57">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-57">&#182;</a>
+              </div>
+              <p>Next, we initialize the results view.  We pass in a css selector indentifying the element on the page to bind
+the view to, the collection object that the view represents, and the template that the view will use to render.</p>
+<p>The template for this view was defined in the HTML markup for the page, on a <code>&lt;script&gt;</code> tag with the
+<code>movie-results-template</code> id.  We use jQuery to fetch the contents of the tag and then pass that to Handlebars to
+compile into a template function.</p>
 
-		<script id="movie-results-template" type="text/handlebars">
-		{{#each results}}
-		<li data-id="{{id}}" class="list-group-item">
-			{{#if image}}<img src="{{image}}" class="img-thumbnail">{{/if}}
-			<h4>
-				<span>{{title}}</span>
-				{{#if full}}<span class="badge">{{score}}%</span>{{/if}}
-				<span class="label label-info">{{type}}</span>
-				<span class="label label-primary">{{year}}</span>
-				{{#if rating}}<span class="label label-success">{{rating}}</span>{{/if}}
-			</h4>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> resultView = <span class="hljs-keyword">new</span> MoviesList({
+	el: <span class="hljs-string">'#results'</span>,
+	collection: searchResults,
+	template: Handlebars.compile($(<span class="hljs-string">'#movie-results-template'</span>).html())
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-58">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-58">&#182;</a>
+              </div>
+              <p>Now we initialize the page router and bind an event handler to it for the search route.  When the URL changes,
+the handler will be triggered with the new search term.  Here is where we are actually telling our collection to
+perform a search.</p>
 
-			{{#if description}}<p>{{description}}</p>{{/if}}
-			{{#if full}}<ul>{{#each cast}}<li>{{this}}</li>{{/each}}</ul>{{/if}}
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> router = <span class="hljs-keyword">new</span> PageRouter();
+router.on(<span class="hljs-string">'route:search'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(term)</span> {</span>
+	searchResults.searchFor(term);
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-59">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-59">&#182;</a>
+              </div>
+              <p>Then we initialize the view for the search form, again passing in a selector for the form itself, and
+the collection that the form will take its term from.</p>
 
-			{{#unless full}}<a class="load-more"><i class="glyphicon glyphicon-plus"></i> Load More Details</a>{{/unless}}
-			<a href="http://www.imdb.com/title/{{id}}" target="_blank"><i class="glyphicon glyphicon-new-window"></i> View on IMDB</a>
-		</li>
-		{{else}}
-		<li class="alert alert-warning">No results found</li>
-		{{/each}}
-		</script>
-	</head>
-	<body>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> searchView = <span class="hljs-keyword">new</span> SearchForm({
+	el: <span class="hljs-string">'#search'</span>,
+	collection: searchResults
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-60">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-60">&#182;</a>
+              </div>
+              <p>When the search form is submitted, it will trigger a search event.  Here we tell the router to change the url
+to match the new search term, specifying that it should trigger any events that this change would cause
+(By default, <code>router.navigate</code> will only update the url).</p>
 
-		<div class="container">
-			<div class="panel panel-default" id="demo-description">
-				<div class="panel-heading">Simple Backbone Demonstration App</div>
-				<div class="panel-body">
-					This is a demonstration application using all the distinct parts of <a href="http://backbonejs.org">Backbone.js</a> and <a href="http://handlebarsjs.com">Handlebars.js</a>. It makes use of the <a href="http://www.omdbapi.com/">oMDB API</a> to retreive basic details about movies and tv series via JSONp.
-				</div>
-			</div>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>searchView.on(<span class="hljs-string">'search'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(term)</span> {</span>
+	router.navigate(<span class="hljs-string">"search/"</span>+<span class="hljs-built_in">encodeURIComponent</span>(term), {trigger:<span class="hljs-literal">true</span>});
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-61">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-61">&#182;</a>
+              </div>
+              <p>Finally, the last thing we need to do is tell Backbone.History to start watching the page url for changes.</p>
 
-			<form id="search">
-				<div class="input-group">
-					<input class="form-control input-lg" type="search" placeholder="Enter movie or actor name.">
-					<span class="input-group-btn">
-						<button type="submit" class="btn btn-primary btn-lg" type="button">Search</button>
-					</span>
-				</div>
-			</form>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>Backbone.history.start();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-62">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-62">&#182;</a>
+              </div>
+              <p>That’s it! Our application is now fully written.</p>
+<p>This tutorial is copyrighted &copy; Jarvis Badgley, 2013 and is released under an MIT license.
+If you have any questions, please feel free to <a href="http://twitter.com/ChiperSoft">contact me on Twitter @ChiperSoft</a>.</p>
 
-			<ul id="results" class="list-group"></ul>
-		</div>
-
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.0/js/bootstrap.min.js"></script>
-		<script src="scripts.js"></script>
-	</body>
+            </div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
 </html>
