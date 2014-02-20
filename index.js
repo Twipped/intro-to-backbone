@@ -499,5 +499,5 @@ Backbone.history.start();
 
 // That's it! Our application is now fully written.
 //
-// This tutorial is copyrighted &copy; Jarvis Badgley, 2013 and is released under an MIT license.
+// This tutorial is copyrighted &copy; Jarvis Badgley, 2013 and is released under a Creative Commons "CC BY-SA" license.
 // If you have any questions, please feel free to [contact me on Twitter @ChiperSoft](http://twitter.com/ChiperSoft).
